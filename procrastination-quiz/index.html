@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <title>Procrastination Quiz</title>
+    <style>
+
+        body {
+            font-family: 'Open Sans';
+        }
+        table {
+        counter-reset: rowNumber;
+        border: 1px;
+        }
+        table td {
+        border: 1px solid #ddd;
+        font-size: 14px;
+        padding: 5px;
+        }
+
+        table tr::before {
+        display: table-cell;
+        counter-increment: rowNumber;
+        content: counter(rowNumber) ".";
+        text-align: right;
+        padding: 7px;
+        }
+        tr:nth-child(odd) {  
+        background-color: #e8e8e8f6;  
+        }  
+
+        select {
+            padding: 3px;
+            width: 220px;
+            font-size: 14px;
+            border-radius: 5px;
+
+        }
+        button {
+            padding: 10px;
+            font-size: 14px;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        function loadScores(){
+            
+            map = {
+                1 : "1 - Extremely uncharacteristic",
+                2 : "2 - Moderately uncharacteristic",
+                3 : "3 - Neutral",
+                4 : "4 - Moderately characteristic",
+                5 : "5 - Extremely characteristic"
+            }
+            scores= document.getElementsByClassName("score");
+            
+            for (let i = 0; i < scores.length; i++){
+                // scores[i].setAttribute("onchange", "tallyScore()");
+                for (let j = 0; j < 5; j++){
+                    const option = document.createElement("option");
+                    option.value = j+1;
+                    option.innerHTML = map[j+1];
+                    scores[i].appendChild(option);
+                }
+            }
+
+            // tallyScore();
+        }
+
+        function tallyScore(){
+            const scores= document.getElementsByClassName("score");
+
+            let total = 0;
+            for (let i = 0; i < scores.length; i++){
+                total += scores[i].classList.contains("invert") ? 5 - parseInt(scores[i].value) : parseInt(scores[i].value);
+            }
+            console.log(total);
+            totalSpan = document.getElementById("total");
+            totalSpan.innerHTML = total;
+
+        }
+    </script>
+  </head>
+  <body onload="loadScores()">
+    <main>
+        <h1>Procrastionation Quiz</h1>
+        <h3>From Chapter 2 of <i>Study Like a Champ : The Psychology-Based Guide to Grade a Study Habits. Gurung, Regan A. R., author.; Dunlosky, John, author.</i></h3>  
+    </main>
+    <div>
+        <table>
+            <tr><td>I often find myself performing tasks that I had intended to do
+            days before. </td><td><select class="score"></select></td></tr>
+            <tr><td>I do not do assignments until just before they are to be
+            handed in.</td><td><select class="score"></select></td></tr>
+            <tr><td>When I am finished with a library book, I return it right away
+            regardless of the date it is due.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>When it is time to get up in the morning, I most often get
+            right out of bed.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>A letter may sit for days after I write it before mailing it.</td><td><select class="score"></select></td></tr>
+            <tr><td>I generally return phone calls promptly.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>Even with jobs that require little else except sitting down
+            and doing them, I find they seldom get done for days.</td><td><select class="score"></select></td></tr>
+            <tr><td>I usually make decisions as soon as possible.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>I generally delay before starting on work I have to do.</td><td><select class="score"></select></td></tr>
+            <tr><td>I usually have to rush to complete a task on time.</td><td><select class="score"></select></td></tr>
+            <tr><td>When preparing to go out, I am seldom caught having to do
+            something at the last minute.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>In preparing for some deadline, I often waste time by doing
+            other things.</td><td><select class="score"></select></td></tr>
+            <tr><td>I prefer to leave early for an appointment.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>I usually start an assignment shortly after it is assigned.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>I often have a task finished sooner than necessary.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>I always seem to end up shopping for birthday or Christmas
+            gifts at the last minute.</td><td><select class="score"></select></td></tr>
+            <tr><td>I usually buy even an essential item at the last minute.</td><td><select class="score"></select></td></tr>
+            <tr><td>I usually accomplish all the things I plan to do in a day.</td><td><select class="score invert"></select></td></tr>
+            <tr><td>I am continually saying, “I’ll do it tomorrow.”</td><td><select class="score"></select></td></tr>
+            <tr><td>I usually take care of all the tasks I have to do before I settle
+            down and relax for the evening.</td><td><select class="score invert"></select></td></tr>
+        </table>
+        <button onclick="tallyScore()">
+            Calculate Total
+        </button>
+        <h2>Total: <span id="total"></span></h2>
+    </div>
+  </body>
+</html>
