@@ -81,7 +81,7 @@
         let total = 0;
         for (let i = 0; i < scores.length; i++) {
           total += scores[i].classList.contains("invert")
-            ? 5 - parseInt(scores[i].value)
+            ? 6 - parseInt(scores[i].value)
             : parseInt(scores[i].value);
         }
         console.log(total);
